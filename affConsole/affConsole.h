@@ -3,4 +3,6 @@
 
 void affichageMorpion (morpion * M);
 int demandeTaille ();
+int demandeCase();
+void jouePartie(morpion * m);
 #endif

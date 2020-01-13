@@ -11,8 +11,8 @@ typedef struct {
 } morpion;
 
 
-// initialise m avec la valeur VIDE
-void initMorpion(morpion * m, int taille);
+// creer un morpion et l'initialise avec la valeur VIDE
+morpion * creerMorpion(int taille);
 
 // renvoie 1 si m[i][j] est non vide et 0 sinon
 int jouer(morpion * m, int i, int j, int joueur);

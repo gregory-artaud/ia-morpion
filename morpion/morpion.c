@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include "morpion.h"
 
-void initMorpion(morpion * m, int taille) {
-	m->taille = taille;
+morpion * creerMorpion(int taille) {
+	morpion * m = (morpion *)malloc(sizeof(morpion));
 
+	m->taille = taille;
 	m->grille = (char **)malloc(sizeof(char *) * m->taille);
 	for (int i = 0; i < m->taille; i++) {
 		m->grille[i] = (char *)malloc(sizeof(char) * m->taille);
@@ -14,15 +15,21 @@ void initMorpion(morpion * m, int taille) {
 			m->grille[i][j] = VIDE;
 		}
 	}
+
+	return m;
 }
 
 int jouer(morpion * m, int i, int j, int joueur) {
-	if (m->grille[i][j] != VIDE) {
-		return 1;
-	} else {
-		m->grille[i][j] = joueur;
-		return 0;
+	if ((i >= 0) && (j >= 0) && (i < m->taille) && (j < m->taille)) {
+		if (m->grille[i][j] != VIDE) {
+			return 1;
+		} else {
+			m->grille[i][j] = joueur;
+			return 0;
+		}
 	}
+
+	return 1;
 }
 
 int aligneLigne(morpion * m, int ligne, int joueur) {
@@ -56,9 +63,9 @@ int aligneDiag(morpion * m, int joueur) {
 		if (res == 1) return res;
 	}
 
-	if (m->grille[m->taille][0] == joueur) {
-		for (int i = 0; i < m->taille; i++) {
-			if (m->grille[m->taille - i -1][i] != m->grille[m->taille - i - 2][i + 1]) res = 0;
+	if (m->grille[0][m->taille - 1] == joueur) {
+		for (int i = 0; i < m->taille - 1; i++) {
+			if (m->grille[i][m->taille - 1 - i] != m->grille[i + 1][m->taille - 2 - i]) res = 0;
 		}
 		if (res == 1) return res;
 	}
@@ -69,7 +76,6 @@ int aligneDiag(morpion * m, int joueur) {
 int gagnant(morpion * m, int joueur) {
 	int i, j;
 	int estPasPlein = 0;
-	// vérifie les alignements
 	for (i = 0; i < m->taille; i++)
 		for (j = 0; j < m->taille; j++)
 			if (m->grille[i][j] == VIDE) estPasPlein = 1;

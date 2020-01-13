@@ -11,17 +11,8 @@ int main(void) {
 		exit(1);
 	}
 
-	morpion * M;
-	initMorpion (M, n);
+	morpion * M = creerMorpion (n);
+	jouePartie(M);
 
-	jouer (M, 2, 2, 0);
-	jouer (M, 1, 1, 0);
-	jouer (M, 0, 0, 0);
-	jouer (M, 1, 2, 1);
-	jouer (M, 0, 2, 1);
-
-	affichageMorpion (M);
-	printf("%d\n", gagnant(M, 1));
-	//printf("%d\n", gagnant(M, 0));
 	return EXIT_SUCCESS;
 }

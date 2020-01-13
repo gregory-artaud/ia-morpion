@@ -52,3 +52,45 @@ int demandeTaille () {
 
   return taille;
 }
+
+int demandeCase(morpion * m) {
+  int res;
+  printf("? ");
+  scanf("%d", &res);
+  while((res < 0) || (res >= m->taille)) {
+    printf("\nEntrée invalide, reessayez :");
+    scanf("%d", &res);
+  }
+  return res;
+}
+
+void jouePartie(morpion * m) {;
+  int i, j;
+  int gagnant1, gagnant2;
+  int tour = 0;
+
+  gagnant1 = gagnant(m, JOUEUR1);
+  gagnant2 = gagnant(m, JOUEUR2);
+  while ((gagnant1 == 0) && (gagnant2 == 0)) {
+    affichageMorpion(m);
+    printf("C'est au tour de Joueur %d :\n", tour % 2 + 1);
+    do {
+      printf("Saisissez la première coordonnée :\n");
+      i = demandeCase(m);
+      printf("la seconde :\n");
+      j = demandeCase(m);
+    } while (jouer(m, i, j, tour % 2) != 0);
+    gagnant1 = gagnant(m, JOUEUR1);
+    gagnant2 = gagnant(m, JOUEUR2);
+    tour++;
+  }
+
+  affichageMorpion(m);
+  if (gagnant1 == gagnant2) {
+    printf("Match Nul\n");
+  } else if (gagnant1 == 1) {
+    printf("Le joueur 1 a gagné !\n");
+  } else if (gagnant2 == 1) {
+    printf("Le joueur 2 a gagné !\n");
+  }
+}
