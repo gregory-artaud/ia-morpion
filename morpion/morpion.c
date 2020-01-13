@@ -39,7 +39,7 @@ int aligneLigne(morpion * m, int ligne, int joueur) {
 int aligneColonne(morpion * m, int colonne, int joueur) {
 	if (m->grille[colonne][0] == joueur) {
 		for (int i = 0; i < m->taille - 1; i++) {
-			if (m->grille[colonne][i] != m->grille[colonn][i + 1]) return 0;
+			if (m->grille[colonne][i] != m->grille[colonne][i + 1]) return 0;
 		}
 		return 1;
 	}
@@ -70,12 +70,12 @@ int gagnant(morpion * m, int joueur) {
 	int i, j;
 	int estPasPlein = 0;
 	// vérifie les alignements
-	for (i = 0; i < m->taille; i++) 
-		for (j = 0; j < m->taille; j++) 
+	for (i = 0; i < m->taille; i++)
+		for (j = 0; j < m->taille; j++)
 			if (m->grille[i][j] == VIDE) estPasPlein = 1;
 
 	for (i = 0; i < m->taille; i++)
-		if (aligneLigne(m, i, joueur) || aligneColonne(m, i, joueur) || aligneDiag(m, joueur))
+		if (aligneLigne(m, i, joueur) || aligneColonne(m, i, joueur) || aligneDiag(m, joueur))
 			return 1;
 
 	if (estPasPlein == 0) return -1;

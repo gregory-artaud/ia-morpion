@@ -11,17 +11,16 @@ int main(void) {
 		exit(1);
 	}
 
-	morpion M = (char**)malloc(sizeof(char*)*n);
-	for (int i=0; i<n; i++)
-		M[i] = (char*)malloc(sizeof(char)*n);
+	morpion * M;
+	initMorpion (M, n);
 
-	for (int i=0; i<n; i++)
-		for (int j=0; j<n; j++)
-			M[i][j]=-1;
+	jouer (M, 2, 2, 0);
+	jouer (M, 1, 1, 0);
+	jouer (M, 0, 0, 0);
+	jouer (M, 1, 2, 1);
+	jouer (M, 0, 2, 1);
 
-	M[1][1] = 0;
-	M[2][1] = 1;
-
-	affichageMorpion (M, n);
+	affichageMorpion (M);
+	printf("%d\n", gagnant(M, 1));
 	return EXIT_SUCCESS;
 }
