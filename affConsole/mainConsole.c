@@ -22,5 +22,6 @@ int main(void) {
 
 	affichageMorpion (M);
 	printf("%d\n", gagnant(M, 1));
+	//printf("%d\n", gagnant(M, 0));
 	return EXIT_SUCCESS;
 }
