@@ -55,10 +55,9 @@ int demandeTaille () {
 
 int demandeCase(morpion * m) {
   int res;
-  printf("? ");
   scanf("%d", &res);
   while((res < 0) || (res >= m->taille)) {
-    printf("\nEntrée invalide, reessayez :");
+    printf("Entrée invalide, veuillez reessayez : ");
     scanf("%d", &res);
   }
   return res;
@@ -73,11 +72,11 @@ void jouePartie(morpion * m) {;
   gagnant2 = gagnant(m, JOUEUR2);
   while ((gagnant1 == 0) && (gagnant2 == 0)) {
     affichageMorpion(m);
-    printf("C'est au tour de Joueur %d :\n", tour % 2 + 1);
+    printf("C'est au tour de Joueur %d : \n", tour % 2 + 1);
     do {
-      printf("Saisissez la première coordonnée :\n");
+      printf("Saisissez la ligne : ");
       i = demandeCase(m);
-      printf("la seconde :\n");
+      printf("Saisissez la colonne : ");
       j = demandeCase(m);
     } while (jouer(m, i, j, tour % 2) != 0);
     gagnant1 = gagnant(m, JOUEUR1);
