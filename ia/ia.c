@@ -1,4 +1,4 @@
-#include "morpion.h"
+#include "../morpion/morpion.h"
 #include "ia.h"
 #include <limits.h>
 
