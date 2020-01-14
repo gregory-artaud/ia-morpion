@@ -11,7 +11,7 @@ int main(void) {
 		exit(1);
 	}
 
-	m = demandeMode();
+	mode = demandeMode();
 
 	morpion * M = creerMorpion (n);
 	jouePartie(M, mode);

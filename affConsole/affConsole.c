@@ -68,7 +68,7 @@ int demandeMode() {
 	int res;
 	printf("Quel mode de jeu ? (1. J vs J, 2. J vs Ordi)\n");
 	scanf("%d", &res);
-	while((res < 0) || (res > 1)) {
+	while((res < 0) || (res > 2)) {
     	printf("Entrée invalide, veuillez reessayez : ");
     	scanf("%d", &res);
   	}
@@ -76,50 +76,67 @@ int demandeMode() {
 }
 
 void jouePartie(morpion * m, int mode) {;
-	int i, j;
+	if (mode == NORMAL_MODE) {
+    joueJoueur (m);
+  }
+  else if (mode == IA_MODE) {
+    joueIA (m);
+  }
+}
+
+void joueJoueur (morpion * m) {
+  int gagnant1, gagnant2;
+  int i, j;
+	int tour = 0;
+
+  gagnant1 = gagnant(m, JOUEUR1);
+  gagnant2 = gagnant(m, JOUEUR2);
+  while ((gagnant1 == 0) && (gagnant2 == 0)) {
+    affichageMorpion(m);
+    printf("C'est au tour de Joueur %d : \n", tour % 2 + 1);
+    do {
+      printf("Saisissez la ligne : ");
+      i = demandeCase(m);
+      printf("Saisissez la colonne : ");
+      j = demandeCase(m);
+    } while (jouer(m, i, j, tour % 2) != 0);
+    gagnant1 = gagnant(m, JOUEUR1);
+    gagnant2 = gagnant(m, JOUEUR2);
+    tour++;
+  }
+  finPartie (m, gagnant1, gagnant2);
+}
+
+void joueIA (morpion *m) {
 	int gagnant1, gagnant2;
+  int i, j;
 	int tour = 0;
 	coordonnees c;
 
-	if (mode == NORMAL_MODE) {
-		gagnant1 = gagnant(m, JOUEUR1);
-		gagnant2 = gagnant(m, JOUEUR2);
-		while ((gagnant1 == 0) && (gagnant2 == 0)) {
-			affichageMorpion(m);
-			printf("C'est au tour de Joueur %d : \n", tour % 2 + 1);
-			do {
-				printf("Saisissez la ligne : ");
-				i = demandeCase(m);
-				printf("Saisissez la colonne : ");
-				j = demandeCase(m);
-			} while (jouer(m, i, j, tour % 2) != 0);
-			gagnant1 = gagnant(m, JOUEUR1);
-			gagnant2 = gagnant(m, JOUEUR2);
-			tour++;
-		}
-	} else if (mode == IA_MODE) {
-		gagnant1 = gagnant(m, JOUEUR1);
-		gagnant2 = gagnant(m, JOUEUR2);
-		while ((gagnant1 == 0) && (gagnant2 == 0)) {
-			affichageMorpion(m);
-			printf("C'est au tour de Joueur %d : \n", tour % 2 + 1);
-			if (tour % 2 == 1) {
-				c = minmax(m);
-				jouer(m, c.i, c.j, tour % 2);
-			} else {
-				do {
-					printf("Saisissez la ligne : ");
-					i = demandeCase(m);
-					printf("Saisissez la colonne : ");
-					j = demandeCase(m);
-				} while (jouer(m, i, j, tour % 2) != 0);
-			}
-			gagnant1 = gagnant(m, JOUEUR1);
-			gagnant2 = gagnant(m, JOUEUR2);
-			tour++;
-		}
-	}
+  gagnant1 = gagnant(m, JOUEUR1);
+  gagnant2 = gagnant(m, JOUEUR2);
+  while ((gagnant1 == 0) && (gagnant2 == 0)) {
+    affichageMorpion(m);
+    printf("C'est au tour de Joueur %d : \n", tour % 2 + 1);
+    if (tour % 2 == 1) {
+      c = minmax(m);
+      jouer(m, c.i, c.j, JOUEUR2);
+    } else {
+      do {
+        printf("Saisissez la ligne : ");
+        i = demandeCase(m);
+        printf("Saisissez la colonne : ");
+        j = demandeCase(m);
+      } while (jouer(m, i, j, tour % 2) != 0);
+    }
+    gagnant1 = gagnant(m, JOUEUR1);
+    gagnant2 = gagnant(m, JOUEUR2);
+    tour++;
+  }
+  finPartie (m, gagnant1, gagnant2);
+}
 
+void finPartie (morpion * m, int gagnant1, int gagnant2) {
 	affichageMorpion(m);
 	if (gagnant1 == gagnant2) {
 		printf("Match Nul\n");

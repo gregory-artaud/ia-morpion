@@ -63,6 +63,7 @@ int aligneDiag(morpion * m, int joueur) {
 		if (res == 1) return res;
 	}
 
+	res = 1;
 	if (m->grille[0][m->taille - 1] == joueur) {
 		for (int i = 0; i < m->taille - 1; i++) {
 			if (m->grille[i][m->taille - 1 - i] != m->grille[i + 1][m->taille - 2 - i]) res = 0;
