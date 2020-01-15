@@ -119,7 +119,7 @@ void joueIA (morpion *m) {
     affichageMorpion(m);
     printf("C'est au tour de Joueur %d : \n", tour % 2 + 1);
     if (tour % 2 == 1) {
-      c = minmax(m);
+      c = minmaxAB(m);
       jouer(m, c.i, c.j, JOUEUR2);
     } else {
       do {

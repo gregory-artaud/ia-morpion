@@ -9,4 +9,7 @@ typedef struct {
 int max (morpion *M);
 int min (morpion *M);
 coordonnees minmax (morpion *M);
+int maxAB (morpion *M);
+int minAB (morpion *M);
+coordonnees minmaxAB (morpion *M);
 #endif
