@@ -10,7 +10,6 @@ typedef struct {
 	char ** grille;
 } morpion;
 
-
 // creer un morpion et l'initialise avec la valeur VIDE
 morpion * creerMorpion(int taille);
 

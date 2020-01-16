@@ -3,7 +3,7 @@
 #include "affConsole.h"
 #include <stdio.h>
 /*
-Affiche la grille de morpion passer en paramètre
+Affiche la grille du morpion passé en paramètre
 */
 void affichageMorpion (morpion * M) {
   printf("\t");
@@ -127,8 +127,8 @@ void joueJoueur (morpion * m) {
 }
 
 /*
-Fonction pour le joueur contre IA. Cett fonction va faire jouer le jouer puis l'IA
-en boucle jusqu'à qu'il y ai un gagnant ou match null.
+Fonction pour le joueur contre IA. Cett fonction va faire jouer le joueur puis l'IA
+en boucle jusqu'à qu'il y ai un gagnant ou match nul.
 */
 void joueIA (morpion *m) {
 	int gagnant1, gagnant2;
@@ -160,7 +160,7 @@ void joueIA (morpion *m) {
 }
 
 /*
-Affiche un message en fonction de qui à gagner la partie.
+Affiche un message en fonction de qui a gagné la partie.
 */
 void finPartie (morpion * m, int gagnant1, int gagnant2) {
 	affichageMorpion(m);

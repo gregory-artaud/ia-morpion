@@ -24,7 +24,7 @@ morpion * creerMorpion(int taille) {
 }
 
 /*
-Joue à l'emplacement indiquer dans les paramètre avec le symbole du jouer passé
+Joue à l'emplacement indiqué dans les paramètres avec le symbole du joueur passé
 en paramètre.
 Renvoie 0 si il n'y a pas d'erreur et 1 si il y a une erreur.
 */
@@ -42,7 +42,7 @@ int jouer(morpion * m, int i, int j, int joueur) {
 }
 
 /*
-Fonction vérifiant si un joueur a gagné en alignant des symboles sur une lignes
+Fonction vérifiant si un joueur a gagné en alignant des symboles sur une ligne
 Renvoie 1 si il a aligné ses symboles sur une ligne. Sinon, renvoie 0.
 */
 int aligneLigne(morpion * m, int ligne, int joueur) {
