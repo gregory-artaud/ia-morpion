@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include "morpion.h"
 
+/*
+Crée et initialise la grille de morpion en fonction de la taille choisie.
+Renvoie le morpion.
+*/
 morpion * creerMorpion(int taille) {
 	morpion * m = (morpion *)malloc(sizeof(morpion));
 
@@ -19,6 +23,11 @@ morpion * creerMorpion(int taille) {
 	return m;
 }
 
+/*
+Joue à l'emplacement indiquer dans les paramètre avec le symbole du jouer passé
+en paramètre.
+Renvoie 0 si il n'y a pas d'erreur et 1 si il y a une erreur.
+*/
 int jouer(morpion * m, int i, int j, int joueur) {
 	if ((i >= 0) && (j >= 0) && (i < m->taille) && (j < m->taille)) {
 		if (m->grille[i][j] != VIDE) {
@@ -32,6 +41,10 @@ int jouer(morpion * m, int i, int j, int joueur) {
 	return 1;
 }
 
+/*
+Fonction vérifiant si un joueur a gagné en alignant des symboles sur une lignes
+Renvoie 1 si il a aligné ses symboles sur une ligne. Sinon, renvoie 0.
+*/
 int aligneLigne(morpion * m, int ligne, int joueur) {
 	if (m->grille[0][ligne] == joueur) {
 		for (int i = 0; i < m->taille - 1; i++) {
@@ -43,6 +56,10 @@ int aligneLigne(morpion * m, int ligne, int joueur) {
 	return 0;
 }
 
+/*
+Fonction vérifiant si un joueur a gagné en alignant des symboles sur une colonne
+Renvoie 1 si il a aligné ses symboles sur une colonne. Sinon, renvoie 0.
+*/
 int aligneColonne(morpion * m, int colonne, int joueur) {
 	if (m->grille[colonne][0] == joueur) {
 		for (int i = 0; i < m->taille - 1; i++) {
@@ -54,6 +71,10 @@ int aligneColonne(morpion * m, int colonne, int joueur) {
 	return 0;
 }
 
+/*
+Fonction vérifiant si un joueur a gagné en alignant des symboles sur une diagonale
+Renvoie 1 si il a aligné ses symboles sur une diagonale. Sinon, renvoie 0.
+*/
 int aligneDiag(morpion * m, int joueur) {
 	int res = 1;
 	if (m->grille[0][0] == joueur) {
@@ -74,6 +95,12 @@ int aligneDiag(morpion * m, int joueur) {
 	return 0;
 }
 
+
+/*
+Fonction vérifiant si un joueur a gagné la partie. Pur cela on vérifie
+les lignes, colonnes et diagonale de la grille.
+Renvoie 1 si il a gagné. Sinon, renvoie 0.
+*/
 int gagnant(morpion * m, int joueur) {
 	int i, j;
 	int estPasPlein = 0;

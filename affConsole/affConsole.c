@@ -43,6 +43,10 @@ void affichageMorpion (morpion * M) {
   printf("\n");
 }
 
+/*
+Demande à l'utilisateur en début de partie la taille de la grille du morpion.
+Renvoie la taille de la grille
+*/
 int demandeTaille () {
   int taille, lecture;
   printf("Veuillez rentrer la taille de la grille (supérieur à 2) : ");
@@ -54,6 +58,10 @@ int demandeTaille () {
   return taille;
 }
 
+/*
+Demande une coordonnées au joueur pour savoir où il va jouer
+Renvoie la coordonnées.
+*/
 int demandeCase(morpion * m) {
 	int res;
 	scanf("%d", &res);
@@ -64,9 +72,13 @@ int demandeCase(morpion * m) {
 	return res;
 }
 
+/*
+Demande si le joueur veut jouer contre l'IA ou contre un autre joueur.
+Renvoi un entier représentant le mode.
+*/
 int demandeMode() {
 	int res;
-	printf("Quel mode de jeu ? (1. J vs J, 2. J vs Ordi)\n");
+	printf("Quel mode de jeu ?\n1. Joueur vs Joueur\n2. Joueur vs IA\n");
 	scanf("%d", &res);
 	while((res < 0) || (res > 2)) {
     	printf("Entrée invalide, veuillez reessayez : ");
@@ -75,6 +87,9 @@ int demandeMode() {
   	return res;
 }
 
+/*
+Lance la fonction adéquate au mode sélectionné
+*/
 void jouePartie(morpion * m, int mode) {;
 	if (mode == NORMAL_MODE) {
     joueJoueur (m);
@@ -84,6 +99,10 @@ void jouePartie(morpion * m, int mode) {;
   }
 }
 
+/*
+Fonction pour le joueur contre joueur. Cette fonction va faire jouer chaque joueur
+en regardant si quelqu'un à gagné.
+*/
 void joueJoueur (morpion * m) {
   int gagnant1, gagnant2;
   int i, j;
@@ -107,6 +126,10 @@ void joueJoueur (morpion * m) {
   finPartie (m, gagnant1, gagnant2);
 }
 
+/*
+Fonction pour le joueur contre IA. Cett fonction va faire jouer le jouer puis l'IA
+en boucle jusqu'à qu'il y ai un gagnant ou match null.
+*/
 void joueIA (morpion *m) {
 	int gagnant1, gagnant2;
   int i, j;
@@ -136,6 +159,9 @@ void joueIA (morpion *m) {
   finPartie (m, gagnant1, gagnant2);
 }
 
+/*
+Affiche un message en fonction de qui à gagner la partie.
+*/
 void finPartie (morpion * m, int gagnant1, int gagnant2) {
 	affichageMorpion(m);
 	if (gagnant1 == gagnant2) {

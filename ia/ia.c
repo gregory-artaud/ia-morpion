@@ -4,8 +4,11 @@
 #include <limits.h>
 #include <stdio.h>
 
-int p = 0;
-
+/*
+Partie max de l'algorithme MinMax. Le but est de trouver le score le plus petit
+pour chaque branche possible.
+Renvoie le score.
+*/
 int max (morpion *M) {
   int score, valeur;
 
@@ -30,6 +33,11 @@ int max (morpion *M) {
   return score;
 }
 
+/*
+Partie min de l'algorithme MinMax. Le but est de trouver le score le plus haut
+pour chaque branche possible.
+Renvoie le score.
+*/
 int min (morpion *M) {
   int score, valeur;
 
@@ -54,6 +62,10 @@ int min (morpion *M) {
   return score;
 }
 
+/*
+Algorithme permettant de faire jouer l'IA basé sur le modèle MinMax
+Renvoie les coordonnées de où va jouer l'IA.
+*/
 coordonnees minmax (morpion *M) {
   int score, valeur;
   coordonnees C;
@@ -63,7 +75,6 @@ coordonnees minmax (morpion *M) {
  score = INT_MAX;
  for (int i=0; i < M->taille; i++) {
    for (int j=0; j < M->taille; j++) {
-     printf("i : %d, j : %d\n",i,j);
      if (M->grille[i][j] == VIDE) {
        M->grille[i][j] = JOUEUR2;
        valeur = max(M);
@@ -81,6 +92,12 @@ coordonnees minmax (morpion *M) {
  return C;
 }
 
+/*
+Partie max de l'algorithme MinMax Alpha-Beta. Le but est de trouver le score le plus bas
+pour chaque branche possible. Si on trouve le score le plus bas, on n'explore
+pas les autres branches
+Renvoie le score.
+*/
 int maxAB (morpion *M) {
   int score, valeur;
 
@@ -95,7 +112,6 @@ int maxAB (morpion *M) {
       if (M->grille[i][j] == VIDE) {
         M->grille[i][j] = JOUEUR1;
 
-        printf("max %d\n", ++p);
         if (score != 10)
           valeur = minAB(M);
 
@@ -108,6 +124,12 @@ int maxAB (morpion *M) {
   return score;
 }
 
+/*
+Partie min de l'algorithme MinMax Alpha-Beta. Le but est de trouver le score le plus haut
+pour chaque branche possible. Si on trouve le score le plus haut, on n'explore
+pas les autres branches
+Renvoie le score.
+*/
 int minAB (morpion *M) {
   int score, valeur;
 
@@ -121,7 +143,6 @@ int minAB (morpion *M) {
     for (int j=0; j< M->taille; j++) {
       if (M->grille[i][j] == VIDE) {
         M->grille[i][j] = JOUEUR2;
-        printf("min %d\n", ++p);
         if (score != -10)
           valeur = maxAB(M);
 
@@ -134,6 +155,10 @@ int minAB (morpion *M) {
   return score;
 }
 
+/*
+Algorithme permettant de faire jouer l'IA basé sur le modèle MinMax Alpha-Beta
+Renvoie les coordonnées de où va jouer l'IA.
+*/
 coordonnees minmaxAB (morpion *M) {
   int score, valeur;
   coordonnees C;
@@ -145,9 +170,7 @@ coordonnees minmaxAB (morpion *M) {
    for (int j=0; j < M->taille; j++) {
      if (M->grille[i][j] == VIDE) {
        M->grille[i][j] = JOUEUR2;
-       // printf("i : %d, j : %d\n",i,j);
-
-       printf("minmax %d\n", ++p);
+       printf("i : %d, j : %d\n",i,j);
        if (score != -10)
           valeur = maxAB(M);
 
