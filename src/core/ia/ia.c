@@ -1,8 +1,7 @@
 #include "../morpion/morpion.h"
-#include "../affConsole/affConsole.h"
-#include "ia.h"
 #include <limits.h>
 #include <stdio.h>
+#include "ia.h"
 
 /*
 Partie max de l'algorithme MinMax. Le but est de trouver le score le plus petit
@@ -170,7 +169,6 @@ coordonnees minmaxAB (morpion *M) {
    for (int j=0; j < M->taille; j++) {
      if (M->grille[i][j] == VIDE) {
        M->grille[i][j] = JOUEUR2;
-       printf("i : %d, j : %d\n",i,j);
        if (score != -10)
           valeur = maxAB(M);
 

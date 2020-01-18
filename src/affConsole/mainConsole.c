@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "../morpion/morpion.h"
+#include "../core/morpion/morpion.h"
 #include "affConsole.h"
 
 int main(void) {

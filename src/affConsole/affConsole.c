@@ -1,5 +1,5 @@
-#include "../morpion/morpion.h"
-#include "../ia/ia.h"
+#include "../core/morpion/morpion.h"
+#include "../core/ia/ia.h"
 #include "affConsole.h"
 #include <stdio.h>
 /*

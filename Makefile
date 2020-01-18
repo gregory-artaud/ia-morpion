@@ -1,25 +1,42 @@
-console: morpionExeC affConsole/affConsole.o morpion/morpion.o ia/ia.o
+morpiondir = src/core/morpion/
+iadir = src/core/ia/
+affConsoledir = src/affConsole/
+affGraphicdir = src/affGraphic/
+objectdir = obj/
 
-graphic: morpionExeG affGraphic/affGraphic.o morpion/morpion.o ia/ia.o
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wconversion -Werror -Wextra -Wpedantic -I$(morpiondir) -I$(iadir)
+LINKER_FLAGS = -lSDL
+objects = $(objectdir)morpion.o $(objectdir)ia.o
+executable = bin/morpionExe
 
-affConsole.o: affConsole/affConsole.c affConsole/affConsole.h
-	gcc -c affConsole/affConsole.c
+$(objectdir)affConsole.o: $(affConsoledir)affConsole.c $(affConsoledir)affConsole.h
+	$(CC) -o $(objectdir)affConsole.o -c $(affConsoledir)affConsole.c
 
-morpion.o: morpion/morpion.c morpion/morpion.h
-	gcc -c morpion/morpion.c
+$(objectdir)affGraphic.o: $(affGraphicdir)affGraphic.c $(affGraphicdir)affGraphic.h
+	$(CC) -o $(objectdir)affGraphic.o -c $(affGraphicdir)affGraphic.c
 
-ia.o: ia/ia.c ia/ia.h
-	gcc -c ia/ia.c
+$(objectdir)morpion.o: $(morpiondir)morpion.c $(morpiondir)morpion.h
+	$(CC) -o $(objectdir)morpion.o -c $(morpiondir)morpion.c
+
+$(objectdir)ia.o: $(iadir)ia.c $(iadir)ia.h
+	$(CC) -o $(objectdir)ia.o -c $(iadir)ia.c
+
+$(objectdir)mainConsole.o: $(affConsoledir)mainConsole.c
+	${CC} -o $(objectdir)mainConsole.o -c $(affConsoledir)mainConsole.c
+
+$(objectdir)mainGraphic.o: $(affGraphicdir)mainGraphic.c
+	${CC} -o $(objectdir)mainGraphic.o -c $(affGraphicdir)mainGraphic.c
 
 # ------------ CONSOLE DISPLAY ------------
 
-morpionExeC: affConsole/mainConsole.c affConsole/affConsole.c affConsole/affConsole.h morpion/morpion.c morpion/morpion.h ia/ia.c ia/ia.h
-	gcc -o morpionExe affConsole/mainConsole.c affConsole/affConsole.c morpion/morpion.c ia/ia.c
+console: $(objects) $(objectdir)mainConsole.o $(objectdir)affConsole.o
+	$(CC) $(CFLAGS) -I$(affConsoledir) -o $(executable) $(objects) $(objectdir)affConsole.o $(objectdir)mainConsole.o
 
 # ------------ GRAPHIC DISPLAY ------------
 
-morpionExeG: affGraphic/mainGraphic.c affGraphic/affGraphic.c affGraphic/affGraphic.h morpion/morpion.c morpion/morpion.h ia/ia.c ia/ia.h
-	gcc -o morpionExe affGraphic/mainGraphic.c affGraphic/affGraphic.c morpion/morpion.c ia/ia.c
+graphic: $(objects) $(objectdir)mainGraphic.o $(objectdir)affGraphic.o
+	$(CC) $(CFLAGS) -I$(affGraphicdir) -o $(executable) $(objects) $(objectdir)mainGraphic.o $(objectdir)affGraphic.o $(LINKER_FLAGS)
 
 clean:
-	find . -name "*.o" -type f -delete ; rm -f morpionExe
+	rm obj/*.o ; rm $(executable)
