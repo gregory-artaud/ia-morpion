@@ -2,7 +2,7 @@
 #define _AFF_GRAPHIC_H_
 
 #define HAUTEUR_FENETRE 480
-#define LARGEUR_FENETRE 640
+#define LARGEUR_FENETRE 480
 #define RES_COULEUR_FENETRE 32
 #define NOM_FENETRE "Morpion"
 

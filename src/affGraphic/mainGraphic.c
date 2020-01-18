@@ -25,6 +25,20 @@ int main(int argc, char *argv[]) {
 
     initFenetre();
 
+    int n, mode;
+
+    n = demandeTaille();
+    if (n == -1) {
+        printf("Valeur donnée non supérieur à 3.\n");
+        exit(1);
+    }
+
+    mode = demandeMode();
+
+    morpion * M = creerMorpion (n);
+
+    affichageMorpion(M);
+
     pause();
  
     SDL_Quit(); // Arrêt de la SDL

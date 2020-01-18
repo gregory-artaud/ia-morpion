@@ -3,48 +3,88 @@
 #include <stdio.h>
 #include <math.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_gfxPrimitives.h>
 #include "affGraphic.h"
 
 Uint32 COULEUR_BLANC;
 Uint32 COULEUR_NOIR;
+Uint32 COULEUR_ROUGE;
 SDL_Surface * surface_ecran;
 
 void affichageMorpion (morpion * M) {
-	for (int k=0; k<M->taille; k++)
-    printf("  %d ",k);
+	int x1, x2, y1, y2, nb_cases;
 
-  printf("\n");
-  printf("\n\t");
-  for (int i=0; i<M->taille; i++)
-    printf("----");
-  printf("-\n");
+	// affichage des barres verticales de la grille
+  	for (int i = 0; i < M->taille - 1; i++)
+  	{
+  		x1 = (LARGEUR_FENETRE / M->taille) * (i + 1);
+  		x2 = x1 + 5;
+  		y1 = 5;
+  		y2 = HAUTEUR_FENETRE - 5;
+  		dessineRectangle(x1, y1, x2, y2, COULEUR_NOIR);
+  	}
 
-  for (int i = 0; i<M->taille; i++) {
-    printf("%d\t", i);
-    for (int j = 0; j<M->taille; j++) {
-      switch (M->grille[i][j]) {
-        case -1 :
-          printf("|   ");
-          break;
-        case 0 :
-          printf("| X ");
-          break;
-        case 1 :
-          printf("| O ");
-          break;
-        default :
-          printf("| ? ");
-          break;
-      }
-    }
-    printf("|\n\t-");
+  	// affichage des barres horizontales de la grille
+  	for (int i = 0; i < M->taille - 1; i++)
+  	{
+  		x1 = 5;
+  		x2 = LARGEUR_FENETRE - 5;
+  		y1 = (HAUTEUR_FENETRE / M->taille) * (i + 1);
+  		y2 = y1 + 5;
+  		dessineRectangle(x1, y1, x2, y2, COULEUR_NOIR);
+  	}
 
-    for (int l=0; l<M->taille; l++)
-      printf("----" );
-    printf("\n");
-  }
-  printf("\n");
+  	// allocation des n*n surfaces des cases
+  	nb_cases = M->taille * M->taille;
+  	SDL_Surface * cases[nb_cases];
+  	for (int i = 0; i < M->taille; i++) {
+  		for (int j = 0; j < M->taille; j++) {
+  			if ((i == M->taille - 1) && (j == M->taille - 1)) {
+  				x1 = 10 + j * (LARGEUR_FENETRE / M->taille);
+  				x2 = (j + 1) * (LARGEUR_FENETRE / M->taille) - 10;
+  				y1 = 10 + i * (HAUTEUR_FENETRE / M->taille);
+  				y2 = (i + 1) * (HAUTEUR_FENETRE / M->taille) - 10;
+  			} else if (j == M->taille - 1) {
+  				x1 = 10 + j * (LARGEUR_FENETRE / M->taille);
+  				x2 = (j + 1) * (LARGEUR_FENETRE / M->taille) - 10;
+  				y1 = 10 + i * (HAUTEUR_FENETRE / M->taille);
+  				y2 = (i + 1) * (HAUTEUR_FENETRE / M->taille) - 5;
+  			} else if (i == M->taille - 1) {
+  				x1 = 10 + j * (LARGEUR_FENETRE / M->taille);
+  				x2 = (j + 1) * (LARGEUR_FENETRE / M->taille) - 5;
+  				y1 = 10 + i * (HAUTEUR_FENETRE / M->taille);
+  				y2 = (i + 1) * (HAUTEUR_FENETRE / M->taille) - 10;
+  			} else {
+  				x1 = 10 + j * (LARGEUR_FENETRE / M->taille);
+  				x2 = (j + 1) * (LARGEUR_FENETRE / M->taille) - 5;
+  				y1 = 10 + i * (HAUTEUR_FENETRE / M->taille);
+  				y2 = (i + 1) * (HAUTEUR_FENETRE / M->taille) - 5;
+  			}
+  			cases[i] = dessineRectangle(x1, y1, x2, y2, COULEUR_ROUGE);
+  		}
+  	}
+
+
+	for (int i = 0; i<M->taille; i++) {
+		for (int j = 0; j<M->taille; j++) {
+			switch (M->grille[i][j]) {
+				case -1 :
+					// ne rien afficher
+					break;
+				case 0 :
+					// afficher une croix
+					break;
+				case 1 :
+					// afficher un rond
+					break;
+				default :
+					// ne rien afficher
+					break;
+			}
+		}
+	}
 }
+
 /*
 Demande à l'utilisateur en début de partie la taille de la grille du morpion.
 Renvoie la taille de la grille
@@ -109,6 +149,7 @@ void initFenetre() {
     // initialisation des couleurs
     COULEUR_BLANC = SDL_MapRGB(surface_ecran->format, 255, 255, 255);
     COULEUR_NOIR = SDL_MapRGB(surface_ecran->format, 0, 0, 0);
+    COULEUR_ROUGE = SDL_MapRGB(surface_ecran->format, 255, 0, 0);
     SDL_FillRect(surface_ecran, NULL, COULEUR_BLANC);
 
     SDL_Flip(surface_ecran); /* Mise à jour de l'écran */
