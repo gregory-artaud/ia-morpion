@@ -4,7 +4,7 @@
 
 #include "../core/morpion/morpion.h"
 #include "affGraphic.h"
- 
+
 void pause();
  
 int main(int argc, char *argv[]) {
@@ -22,17 +22,16 @@ int main(int argc, char *argv[]) {
 
     morpion * M = creerMorpion (n);
     jouePartie(M, mode);*/
- 
-    SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE); // Ouverture de la fenêtre
-    SDL_WM_SetCaption("Morpion", NULL);
-    
-    pause(); // Mise en pause du programme
+
+    initFenetre();
+
+    pause();
  
     SDL_Quit(); // Arrêt de la SDL
  
     return EXIT_SUCCESS; // Fermeture du programme
 }
- 
+
 void pause()
 {
     int continuer = 1;
