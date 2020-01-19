@@ -6,7 +6,7 @@ objectdir = obj/
 
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wconversion -Werror -Wextra -Wpedantic -I$(morpiondir) -I$(iadir)
-LINKER_FLAGS = -lSDL -lm
+LINKER_FLAGS = -lSDL -lSDL_gfx -lm
 objects = $(objectdir)morpion.o $(objectdir)ia.o
 executable = bin/morpionExe
 

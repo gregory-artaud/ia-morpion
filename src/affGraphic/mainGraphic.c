@@ -5,25 +5,8 @@
 #include "../core/morpion/morpion.h"
 #include "affGraphic.h"
 
-void pause();
- 
 int main(int argc, char *argv[]) {
     SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
-
-    /*int n, mode;
-
-    n = demandeTaille();
-    if (n == -1) {
-        printf("Valeur donnée non supérieur à 3.\n");
-        exit(1);
-    }
-
-    mode = demandeMode();
-
-    morpion * M = creerMorpion (n);
-    jouePartie(M, mode);*/
-
-    initFenetre();
 
     int n, mode;
 
@@ -37,27 +20,12 @@ int main(int argc, char *argv[]) {
 
     morpion * M = creerMorpion (n);
 
-    affichageMorpion(M);
+    initFenetre();
+    cases = initGrille(M);
 
-    pause();
+    jouePartie(M, mode);
  
     SDL_Quit(); // Arrêt de la SDL
  
     return EXIT_SUCCESS; // Fermeture du programme
-}
-
-void pause()
-{
-    int continuer = 1;
-    SDL_Event event;
- 
-    while (continuer)
-    {
-        SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-            case SDL_QUIT:
-                continuer = 0;
-        }
-    }
 }
