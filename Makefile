@@ -10,6 +10,8 @@ LINKER_FLAGS = -lSDL -lSDL_gfx -lm
 objects = $(objectdir)morpion.o $(objectdir)ia.o
 executable = bin/morpionExe
 
+
+
 $(objectdir)affConsole.o: $(affConsoledir)affConsole.c $(affConsoledir)affConsole.h
 	$(CC) -o $(objectdir)affConsole.o -c $(affConsoledir)affConsole.c
 
@@ -37,6 +39,9 @@ console: $(objects) $(objectdir)mainConsole.o $(objectdir)affConsole.o
 
 graphic: $(objects) $(objectdir)mainGraphic.o $(objectdir)affGraphic.o
 	$(CC) $(CFLAGS) -I$(affGraphicdir) -o $(executable) $(objects) $(objectdir)mainGraphic.o $(objectdir)affGraphic.o $(LINKER_FLAGS)
+
+install:
+	mkdir bin ; mkdir obj
 
 clean:
 	rm obj/*.o ; rm $(executable)
