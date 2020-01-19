@@ -17,15 +17,15 @@ make install
 ```
 Pour la compilation, voici les deux commandes à utiliser selon l'affichage que vous souhaitez utiliser :
 
+Pour l'affichage console :
 ```
 make console
 ```
-Pour l'affichage console.
 
+Pour l'affichage graphique :
 ```
 make graphic
 ```
-Pour l'affichage graphique.
 
 Apres avoir exécuté l'une de ces deux commandes, il est temps d'exécuter le programme.
 L'exécutable se situe dans le dossier bin/. Pour l'exécuter la commande est la suivante :
