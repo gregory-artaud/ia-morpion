@@ -27,7 +27,7 @@ SDL_Surface ** initGrille(morpion * M) {
   		x2 = x1 + 5;
   		y1 = 5;
   		y2 = HAUTEUR_FENETRE - 5;
-  		dessineRectangle(x1, y1, x2, y2, COULEUR_NOIR);
+  		SDL_FreeSurface(dessineRectangle(x1, y1, x2, y2, COULEUR_NOIR));
   	}
 
   	// affichage des barres horizontales de la grille
@@ -37,7 +37,7 @@ SDL_Surface ** initGrille(morpion * M) {
   		x2 = LARGEUR_FENETRE - 5;
   		y1 = (HAUTEUR_FENETRE / M->taille) * (i + 1);
   		y2 = y1 + 5;
-  		dessineRectangle(x1, y1, x2, y2, COULEUR_NOIR);
+  		SDL_FreeSurface(dessineRectangle(x1, y1, x2, y2, COULEUR_NOIR));
   	}
 
   	for (int i = 0; i < M->taille; i++) {
@@ -126,7 +126,7 @@ void dessineCroix(SDL_Surface * surface) {
 	y1 = surface->clip_rect.y;
 	x2 = surface->clip_rect.x + surface->clip_rect.w;
 	y2 = surface->clip_rect.y + surface->clip_rect.h;
-	dessineRectangle(x1, y1, x2, y2, COULEUR_BLEU);
+	SDL_FreeSurface(dessineRectangle(x1, y1, x2, y2, COULEUR_BLEU));
 }
 
 /*
@@ -139,7 +139,7 @@ void dessineRond(SDL_Surface * surface) {
 	y1 = surface->clip_rect.y;
 	x2 = surface->clip_rect.x + surface->clip_rect.w;
 	y2 = surface->clip_rect.y + surface->clip_rect.h;
-	dessineRectangle(x1, y1, x2, y2, COULEUR_ROUGE);
+	SDL_FreeSurface(dessineRectangle(x1, y1, x2, y2, COULEUR_ROUGE));
 }
 
 /*
@@ -352,6 +352,7 @@ void ecranFinal(morpion * m) {
 		switch(event.type) {
 			case SDL_QUIT:
 				freeCases(m);
+				freeMorpion(m);
 				continuer = 0;
 				break;
 		}

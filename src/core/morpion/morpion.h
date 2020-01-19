@@ -25,5 +25,6 @@ int aligneDiag(morpion * m, int joueur);
 // si m est plein et que personne n'a gagné renvoie -1
 // renvoie 0 sinon
 int gagnant(morpion * m, int joueur);
+void freeMorpion(morpion * m);
 
 #endif

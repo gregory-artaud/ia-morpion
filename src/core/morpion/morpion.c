@@ -1,6 +1,14 @@
 #include <stdlib.h>
 #include "morpion.h"
 
+void freeMorpion(morpion * m) {
+	for (int i = 0; i < m->taille; i++) {
+		free(m->grille[i]);
+	}
+	free(m->grille);
+	free(m);
+}
+
 /*
 Crée et initialise la grille de morpion en fonction de la taille choisie.
 Renvoie le morpion.
