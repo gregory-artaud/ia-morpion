@@ -43,5 +43,8 @@ graphic: $(objects) $(objectdir)mainGraphic.o $(objectdir)affGraphic.o
 install:
 	mkdir bin ; mkdir obj
 
+run:
+	./$(executable)
+
 clean:
 	rm obj/*.o ; rm $(executable)
